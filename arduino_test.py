@@ -8,23 +8,23 @@ import wavio
 ser = serial.Serial('/dev/cu.usbmodem14201',115200)
 time.sleep(2)
 
-# Read and record the data
+
 data =[]    
-                   # empty list to store the data
+                   
 t_end = time.time() + 3
 
 while time.time() < t_end:
     try:
-        b = ser.readline()         # read a byte string
-        string = b.decode()  # decode byte string into Unicode  
+        b = ser.readline()         
+        string = b.decode()  
         string = string.strip()
-        flt = float(string)        # convert string to float
+        flt = float(string)       
     
         data.append(flt) 
-             # add to the end of data list
-    except UnicodeDecodeError: # catch error and ignore it
+             
+    except UnicodeDecodeError:
         data.append(0)
-    except ValueError: # catch error and ignore it
+    except ValueError: 
         data.append(0)
 
 ser.close()
@@ -40,4 +40,4 @@ print(len(data))
 arr = np.array(data)
 arr_norm = arr / 5
 
-wavio.write("out.wav", arr_norm, 2231, sampwidth=3)
+wavio.write("out1.wav", arr_norm, 2231, sampwidth=3)
